@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 //original example from
 // w w w  . jav  a 2s  . com
+//example change
 import javax.imageio.ImageIO;
 
 public class PullImageFromImage {
