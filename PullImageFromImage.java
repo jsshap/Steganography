@@ -83,9 +83,9 @@ public class PullImageFromImage {
         //System.out.println(LSBs.size());
         //for(int u: LSBs)System.out.print(u);
 
+        //BufferedImage hiddenImage = new BufferedImage(newHeight, newWidth, png); NEED TO FIGURE OUT HOW TO CREATE NEW IMAGE
 
-
-        for (Integer bit : LSBs){System.out.print(bit);}
+        //for (Integer bit : LSBs){System.out.print(bit);}ja
         for (int m = 0; m <64; m++){LSBs.removeFirst();}
         
 
@@ -113,6 +113,6 @@ public class PullImageFromImage {
 
 
 
-        return image;
+        return hiddenImage;
     }
 }
