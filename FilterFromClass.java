@@ -28,6 +28,7 @@ public class FilterFromClass {
                 raster.setPixel(xx, yy, pixels);
             }
         }
+        System.out.println ("test");
         return image;
     }
 }
