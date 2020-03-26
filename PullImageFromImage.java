@@ -85,7 +85,8 @@ public class PullImageFromImage {
 
         //BufferedImage hiddenImage = new BufferedImage(newHeight, newWidth, png); NEED TO FIGURE OUT HOW TO CREATE NEW IMAGE
 
-        //for (Integer bit : LSBs){System.out.print(bit);}ja
+
+        //for (Integer bit : LSBs){System.out.print(bit);}
         for (int m = 0; m <64; m++){LSBs.removeFirst();}
         
 
@@ -93,26 +94,31 @@ public class PullImageFromImage {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
                 for (int j =0; j< 8; j ++ ){
-                    pixels[0]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                    pixels[0]=0;
+                    pixels[0]+= LSBs.removeFirst()*(int) Math.pow(2, j);
                 }
 
                 for (int j =0; j< 8; j ++ ){
-                    pixels[1]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                    pixels[1]=0;
+                    pixels[1]+= LSBs.removeFirst()*(int) Math.pow(2, j);
                 }
 
                 for (int j =0; j< 8; j ++ ){
-                    pixels[2]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                    pixels[2]=0;
+                    pixels[2]+= LSBs.removeFirst()*(int) Math.pow(2, j);
                 }
-
+                
                 for (int j =0; j< 8; j ++ ){
-                    pixels[3]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                    pixels[3]=0;
+                    pixels[3]+= LSBs.removeFirst()*(int) Math.pow(2, j);
                 }
+                
                 raster.setPixel(xx, yy, pixels);
             }
         }
 
 
 
-        return hiddenImage;
+        return image;
     }
 }
