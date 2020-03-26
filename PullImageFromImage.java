@@ -2,6 +2,8 @@
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.util.LinkedList;
+
 //original example from
 // w w w  . jav  a 2s  . com
 import javax.imageio.ImageIO;
@@ -52,7 +54,7 @@ public class PullImageFromImage {
             newWidth += bitsforNewWidth[bit] * (int) Math.pow(2,32-bit);
         }
 
-        //System.out.println(newHeight);
+       //System.out.println(newHeight);
        // System.out.println(newWidth);
 
         
@@ -61,45 +63,48 @@ public class PullImageFromImage {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        int[] LSBs = new int[width*height*3];
-        int bitsGrabbed=0;
+        //int[] LSBs = new int[width*height*3];
+        LinkedList<Integer> LSBs = new LinkedList<>();
 
 
         for (int xx = 0; xx < width; xx++) {
             for (int yy = 0; yy < height; yy++) {
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                LSBs[bitsGrabbed] = pixels[0]&1;bitsGrabbed++;
-                LSBs[bitsGrabbed] = pixels[1]&1;bitsGrabbed++;
-                LSBs[bitsGrabbed] = pixels[2]&1;bitsGrabbed++;
+                LSBs.add(pixels[0]&1);
+                LSBs.add(pixels[1]&1);
+                LSBs.add(pixels[2]&1);
+
             }
+
         }
 
+        //System.out.println(LSBs.size());
         //for(int u: LSBs)System.out.print(u);
 
 
 
-        int startIndexOfHiddenImage = 64;
+        for (Integer bit : LSBs){System.out.print(bit);}
+        for (int m = 0; m <64; m++){LSBs.removeFirst();}
+        
 
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                for (int j =0; j< 16; j ++ ){
-                    pixels[0]+= LSBs[startIndexOfHiddenImage+j]*(int) Math.pow(2, 16-j);
+                for (int j =0; j< 8; j ++ ){
+                    pixels[0]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
                 }
-                startIndexOfHiddenImage+=16;
-                for (int j =0; j< 16; j ++ ){
-                    pixels[1]+= LSBs[startIndexOfHiddenImage+j]*(int) Math.pow(2, 16-j);
-                }
-                startIndexOfHiddenImage+=16;
-                for (int j =0; j< 16; j ++ ){
-                    pixels[2]+= LSBs[startIndexOfHiddenImage+j]*(int) Math.pow(2, 16-j);
-                }
-                startIndexOfHiddenImage+=16;
-                for (int j =0; j< 16; j ++ ){
-                    pixels[3]+= LSBs[startIndexOfHiddenImage+j]*(int) Math.pow(2, 16-j);
-                }
-                startIndexOfHiddenImage+=16;
 
+                for (int j =0; j< 8; j ++ ){
+                    pixels[1]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                }
+
+                for (int j =0; j< 8; j ++ ){
+                    pixels[2]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                }
+
+                for (int j =0; j< 8; j ++ ){
+                    pixels[3]+= LSBs.removeFirst()*(int) Math.pow(2, 8-j);
+                }
                 raster.setPixel(xx, yy, pixels);
             }
         }
