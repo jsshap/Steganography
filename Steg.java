@@ -15,7 +15,7 @@ public class Steg {
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++) {
                 int[] pixels = raster.getPixel(c, r, (int[]) null);
-                if (count < 1840){
+                if (count < 32){
                     System.out.print((pixels[0] & 1) + "" +  (pixels[1] & 1) + "" +  (pixels[2] & 1));
                     count ++;
                 }
