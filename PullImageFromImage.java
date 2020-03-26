@@ -92,27 +92,37 @@ public class PullImageFromImage {
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+                int a =0;
                 for (int j =0; j< 8; j ++ ){
                     pixels[0]=0;
-                    pixels[0]+= LSBs.removeFirst()*(int) Math.pow(2, j);
+                    a+= LSBs.removeFirst()*(int) Math.pow(2, 7-j);
+                    pixels[0]=a;
                 }
-
-                for (int j =0; j< 8; j ++ ){
-                    pixels[1]=0;
-                    pixels[1]+= LSBs.removeFirst()*(int) Math.pow(2, j);
-                }
-
+                System.out.println(a);
+                int r =0;
                 for (int j =0; j< 8; j ++ ){
                     pixels[2]=0;
-                    pixels[2]+= LSBs.removeFirst()*(int) Math.pow(2, j);
+                    r+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
+                    
+                    pixels[2] = r;
                 }
-                
+                System.out.println(r);
+                int g =0;
+                for (int j =0; j< 8; j ++ ){
+                    pixels[1]=0;
+                    g+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
+                    pixels[1]=g;
+                }
+                System.out.println(g);
+                int b=0;
                 for (int j =0; j< 8; j ++ ){
                     pixels[3]=0;
-                    pixels[3]+= LSBs.removeFirst()*(int) Math.pow(2, j);
+                    b+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
+                    pixels[3]= b;
                 }
-                
+                System.out.println(b);
                 raster.setPixel(xx, yy, pixels);
+                System.out.println();
             }
         }
 
