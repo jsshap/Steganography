@@ -51,5 +51,13 @@ public class Helpers{
         return bytes;
 
     }
+    public static String convertBytesToString(LinkedList<Integer> bytes){
+        //WRITE THIS
+        return null;
+    }
+    public static LinkedList<Integer> pullRGBSecondLSBs(BufferedImage image){
+        //TODO
+        return null;
+    }
 
 }
