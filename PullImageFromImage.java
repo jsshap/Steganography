@@ -56,8 +56,8 @@ public class PullImageFromImage {
             newWidth += bitsforNewWidth[bit] * (int) Math.pow(2,32-bit);
         }
 
-       //System.out.println(newHeight);
-       // System.out.println(newWidth);
+       System.out.println(newHeight);
+       System.out.println(newWidth);
 
         
 
@@ -65,7 +65,6 @@ public class PullImageFromImage {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        //int[] LSBs = new int[width*height*3];
         LinkedList<Integer> LSBs = new LinkedList<>();
         
 
@@ -86,7 +85,7 @@ public class PullImageFromImage {
         //for (Integer bit : LSBs){System.out.print(bit);}
         for (int m = 0; m <64; m++){LSBs.removeFirst();}
         
-        LinkedList<Integer> bytes = bitsToBytes.convertBitsToBytes(LSBs);
+        LinkedList<Integer> bytes = BitsToBytes.convertBitsToBytes(LSBs);
 
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){

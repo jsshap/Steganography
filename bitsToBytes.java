@@ -1,5 +1,5 @@
 import java.util.LinkedList;
-public class bitsToBytes{
+public class BitsToBytes{
 
     public static LinkedList<Integer> convertBitsToBytes(LinkedList<Integer> bits){
         LinkedList<Integer> bytes = new LinkedList<Integer>();
