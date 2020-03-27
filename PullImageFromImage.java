@@ -74,7 +74,7 @@ public class PullImageFromImage {
                     //System.out.println(byte1);
                     pixels[l]=byte1;
                 }
-                raster.setPixel(xx, yy, pixels);
+                raster.setPixel(yy, xx, pixels);
             }
         }
 
