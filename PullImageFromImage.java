@@ -69,18 +69,7 @@ public class PullImageFromImage {
         
 
 
-        for (int xx = 0; xx < width; xx++) {
-            for (int yy = 0; yy < height; yy++) {
-                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                LSBs.add(pixels[0]&1);
-                LSBs.add(pixels[1]&1);
-                LSBs.add(pixels[2]&1);
-
-            }
-
-        }
-
-        
+        LSBs = Helpers.pullRGBLSBs(image);
 
         //for (Integer bit : LSBs){System.out.print(bit);}
         for (int m = 0; m <64; m++){LSBs.removeFirst();}
@@ -92,8 +81,8 @@ public class PullImageFromImage {
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
                 for (int l=0; l<3; l++){
                     pixels[l]=bytes.removeFirst();
-                    raster.setPixel(xx, yy, pixels);
                 }
+                raster.setPixel(xx, yy, pixels);
             }
         }
 
