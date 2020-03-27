@@ -67,6 +67,7 @@ public class PullImageFromImage {
 
         //int[] LSBs = new int[width*height*3];
         LinkedList<Integer> LSBs = new LinkedList<>();
+        
 
 
         for (int xx = 0; xx < width; xx++) {
@@ -80,50 +81,19 @@ public class PullImageFromImage {
 
         }
 
-        //System.out.println(LSBs.size());
-        //for(int u: LSBs)System.out.print(u);
-
-        //BufferedImage hiddenImage = new BufferedImage(newHeight, newWidth, png); NEED TO FIGURE OUT HOW TO CREATE NEW IMAGE
-
+        
 
         //for (Integer bit : LSBs){System.out.print(bit);}
         for (int m = 0; m <64; m++){LSBs.removeFirst();}
         
+        LinkedList<Integer> bytes = bitsToBytes.convertBitsToBytes(LSBs);
 
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                int a =0;
-                for (int j =0; j< 8; j ++ ){
-                    pixels[0]=0;
-                    a+= LSBs.removeFirst()*(int) Math.pow(2, 7-j);
-                    pixels[0]=a;
+                for (int l=0; l<3; l++){
+                    pixels[l]=bytes.removeFirst();
                 }
-                System.out.println(a);
-                int r =0;
-                for (int j =0; j< 8; j ++ ){
-                    pixels[1]=0;
-                    r+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
-                    
-                    pixels[1] = r;
-                }
-                System.out.println(r);
-                int g =0;
-                for (int j =0; j< 8; j ++ ){
-                    pixels[2]=0;
-                    g+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
-                    pixels[2]=g;
-                }
-                System.out.println(g);
-                int b=0;
-                for (int j =0; j< 8; j ++ ){
-                    pixels[3]=0;
-                    b+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
-                    pixels[3]= b;
-                }
-                System.out.println(b);
-                raster.setPixel(xx, yy, pixels);
-                System.out.println();
             }
         }
 
