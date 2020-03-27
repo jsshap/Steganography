@@ -66,6 +66,18 @@ public class PullImageFromImage {
         newHeight=80;
         newWidth= 60;
 
+
+        //GET RID OF THE ORIGINAL IMAGE
+        for (int xx =0; xx< image.getWidth(); xx++) {
+            for (int yy = 0; yy< image.getHeight(); yy++){
+                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+                for (int l=0; l<3; l++){
+                    pixels[l]=0;
+                }
+                raster.setPixel(xx, yy, pixels);
+            }
+        }
+
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
