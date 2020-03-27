@@ -93,6 +93,7 @@ public class PullImageFromImage {
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
                 for (int l=0; l<3; l++){
                     pixels[l]=bytes.removeFirst();
+                    raster.setPixel(xx, yy, pixels);
                 }
             }
         }
