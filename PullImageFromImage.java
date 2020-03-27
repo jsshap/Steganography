@@ -44,28 +44,35 @@ public class PullImageFromImage {
             i++;
         }
 
+
+        //THIS IS WRONG. FIX BEFORE USING
         for (int bit =1; bit< 32; bit++){
             newHeight += bitsForNewHeight[bit] * (int) Math.pow(2,32-bit);
             newWidth += bitsforNewWidth[bit] * (int) Math.pow(2,32-bit);
         }
 
-       System.out.println(newHeight);
-       System.out.println(newWidth);
+       //System.out.println(newHeight);
+       //System.out.println(newWidth);
 
 
         LinkedList<Integer> LSBs = new LinkedList<>();
         LSBs = Helpers.pullRGBLSBs(image);
 
         //for (Integer bit : LSBs){System.out.print(bit);}
-        for (int m = 0; m <64; m++){LSBs.removeFirst();}
+        for (int m = 0; m <64; m++){LSBs.removeFirst();}//Remove the header for specific instance of sample image
         
         LinkedList<Integer> bytes = Helpers.convertBitsToBytes(LSBs);
+
+        newHeight=80;
+        newWidth= 60;
 
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
                 for (int l=0; l<3; l++){
-                    pixels[l]=bytes.removeFirst();
+                    int byte1 = bytes.removeFirst();
+                    //System.out.println(byte1);
+                    pixels[l]=byte1;
                 }
                 raster.setPixel(xx, yy, pixels);
             }

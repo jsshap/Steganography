@@ -24,15 +24,32 @@ public class Helpers{
     }
     public static LinkedList<Integer> convertBitsToBytes(LinkedList<Integer> bits){
         LinkedList<Integer> bytes = new LinkedList<Integer>();
+        //int size=bits.size();
+        //System.out.println("Length of bits " + bits.size());
+        /*for (int i =0; i<80; i++){
+            if (i%8==0)System.out.println();
+            System.out.print(bits.get(i));
+        }*/
+        
 
         while (!bits.isEmpty()){
+            int nextByte=0;
             for (int i=0; i<8; i++){
-                int nextByte=0;
+                
                 nextByte+=bits.removeFirst()*((int) Math.pow(2, 7-i));
-                bytes.add(nextByte);
+                
             }
+            bytes.add(nextByte);
         }
+
+        /*for (int i=0; i< 10; i++){
+            System.out.println(bytes.get(i));
+        }
+
+        System.out.println("length of bytes " + bytes.size());
+        System.out.println(bytes.size()*8==size);*/
         return bytes;
+
     }
 
 }
