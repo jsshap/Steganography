@@ -44,13 +44,6 @@ public class PullImageFromImage {
             i++;
         }
 
-        /*
-        for (int bit : bitsForNewHeight){System.out.print(bit);}
-        System.out.println();
-  
-        for (int bit : bitsforNewWidth){System.out.print(bit);}
-        System.out.println();
-*/
         for (int bit =1; bit< 32; bit++){
             newHeight += bitsForNewHeight[bit] * (int) Math.pow(2,32-bit);
             newWidth += bitsforNewWidth[bit] * (int) Math.pow(2,32-bit);
@@ -59,22 +52,14 @@ public class PullImageFromImage {
        System.out.println(newHeight);
        System.out.println(newWidth);
 
-        
-
-
-        int width = image.getWidth();
-        int height = image.getHeight();
 
         LinkedList<Integer> LSBs = new LinkedList<>();
-        
-
-
         LSBs = Helpers.pullRGBLSBs(image);
 
         //for (Integer bit : LSBs){System.out.print(bit);}
         for (int m = 0; m <64; m++){LSBs.removeFirst();}
         
-        LinkedList<Integer> bytes = BitsToBytes.convertBitsToBytes(LSBs);
+        LinkedList<Integer> bytes = Helpers.convertBitsToBytes(LSBs);
 
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){

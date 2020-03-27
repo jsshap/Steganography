@@ -8,7 +8,7 @@ public class Helpers{
     public static LinkedList<Integer> pullRGBLSBs(BufferedImage image){
         int width = image.getWidth();
         int height = image.getHeight();
-        System.out.println("Height: " + height + " Width: " + width);
+       // System.out.println("Height: " + height + " Width: " + width);
         
         LinkedList<Integer> bits = new LinkedList<Integer>();
         WritableRaster raster = image.getRaster();
@@ -22,7 +22,17 @@ public class Helpers{
         }
         return bits;
     }
+    public static LinkedList<Integer> convertBitsToBytes(LinkedList<Integer> bits){
+        LinkedList<Integer> bytes = new LinkedList<Integer>();
 
-
+        while (!bits.isEmpty()){
+            for (int i=0; i<8; i++){
+                int nextByte=0;
+                nextByte+=bits.removeFirst()*((int) Math.pow(2, 7-i));
+                bytes.add(nextByte);
+            }
+        }
+        return bytes;
+    }
 
 }
