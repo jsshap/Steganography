@@ -102,17 +102,17 @@ public class PullImageFromImage {
                 System.out.println(a);
                 int r =0;
                 for (int j =0; j< 8; j ++ ){
-                    pixels[2]=0;
+                    pixels[1]=0;
                     r+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
                     
-                    pixels[2] = r;
+                    pixels[1] = r;
                 }
                 System.out.println(r);
                 int g =0;
                 for (int j =0; j< 8; j ++ ){
-                    pixels[1]=0;
+                    pixels[2]=0;
                     g+=(LSBs.removeFirst()*(int) Math.pow(2, 7-j));
-                    pixels[1]=g;
+                    pixels[2]=g;
                 }
                 System.out.println(g);
                 int b=0;
