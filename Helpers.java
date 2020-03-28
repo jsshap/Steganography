@@ -121,6 +121,7 @@ public class Helpers{
         int intTwoLittleEndian = (firstBytes[7]<<24) + (firstBytes[6]<<16)+(firstBytes[5]<<8)+(firstBytes[4]);
         int intThreeLittleEndian= (firstBytes[11]<<24) + (firstBytes[10]<<16)+(firstBytes[9]<<8)+(firstBytes[8]);
 
+        System.out.println("First three ints hidden in given list of Bytes: ");
         System.out.println("Big Endian: " + intOneBigEndian + ", " + intTwoBigEndian+ ", " + intThreeBigEndian);
         System.out.println("Little Endian: " + intOneLittleEndian + ", " + intTwoLittleEndian+ ", " + intThreeLittleEndian);
     }
