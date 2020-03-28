@@ -51,13 +51,14 @@ public class PullImageFromImage {
             newWidth += bitsForNewHeight[bit] * (int) Math.pow(2,31-bit);
         }
 
-        System.out.println(newWidth);
-        System.out.println(newHeight);
-       
+        //System.out.println(newWidth);
+        //System.out.println(newHeight);
+        
 
 
         LinkedList<Integer> LSBs = new LinkedList<>();
         LSBs = Helpers.pullRGBLSBs(image);
+        Helpers.checkForHeader(Helpers.convertBitsToBytes(LSBs));
 
         //for (Integer bit : LSBs){System.out.print(bit);}
         for (int m = 0; m <64; m++){LSBs.removeFirst();}//Remove the header for specific instance of sample image
