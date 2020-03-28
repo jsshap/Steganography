@@ -46,13 +46,14 @@ public class PullImageFromImage {
 
 
         //THIS IS WRONG. FIX BEFORE USING
-        for (int bit =1; bit< 32; bit++){
-            newHeight += bitsForNewHeight[bit] * (int) Math.pow(2,32-bit);
-            newWidth += bitsforNewWidth[bit] * (int) Math.pow(2,32-bit);
+        for (int bit =0; bit< 32; bit++){
+            newHeight += bitsforNewWidth[bit] * (int) Math.pow(2,31-bit);
+            newWidth += bitsForNewHeight[bit] * (int) Math.pow(2,31-bit);
         }
 
-       //System.out.println(newHeight);
-       //System.out.println(newWidth);
+        System.out.println(newWidth);
+        System.out.println(newHeight);
+       
 
 
         LinkedList<Integer> LSBs = new LinkedList<>();
@@ -63,8 +64,8 @@ public class PullImageFromImage {
         
         LinkedList<Integer> bytes = Helpers.convertBitsToBytes(LSBs);
 
-        newHeight=80;
-        newWidth= 60;
+        //newHeight=80;
+        //newWidth= 60;
 
 
         //GET RID OF THE ORIGINAL IMAGE
@@ -77,7 +78,8 @@ public class PullImageFromImage {
                 raster.setPixel(xx, yy, pixels);
             }
         }
-
+        //I think something is messed up between height and width and how high the loops run,
+        //but it works so leaving for now
         for (int xx =0; xx< newWidth; xx++) {
             for (int yy = 0; yy< newHeight; yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
