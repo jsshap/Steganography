@@ -173,4 +173,26 @@ public class Helpers{
         }
         return pixelValues; 
     }
+    public static BufferedImage convertBytesToImage(LinkedList<Integer> bytes, int height, int width){
+        LinkedList<Integer> localBytes = new LinkedList<Integer>();
+        for (Integer i : bytes){
+            localBytes.add(i);
+        }
+        //now turn local bytes into a png
+        //TODO write the method
+        BufferedImage image = new BufferedImage (width, height, 6);//just trust the constant
+        WritableRaster raster = image.getRaster();
+        for (int xx =0; xx< width; xx++) {
+            for (int yy = 0; yy< height; yy++){
+                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+                for (int l=0; l<3; l++){
+                    int byte1 = localBytes.removeFirst();
+                    pixels[l]=byte1;
+                    pixels [3]=255; 
+                }
+                raster.setPixel(xx, yy, pixels);
+            }
+        }
+        return image;
+    }
 }
