@@ -55,7 +55,6 @@ public class Helpers{
 
     }
     public static String convertBytesToString(LinkedList<Integer> bytes){
-        //TODO: test this
         LinkedList<Integer> localBytes = new LinkedList<Integer>();
         for (Integer i : bytes){localBytes.add(i);}//Copies bytes into a local variable
         //This method should not modify the List called bytes, rather copy it and
@@ -89,6 +88,7 @@ public class Helpers{
     }
     public static LinkedList<Integer> pullLSBsOfSpecificColors(BufferedImage image, int[] colors){
         //TODO test this method
+        //I think this does in fact work based on a quick test
         //Pull LSBs of one color channel. R=0, G=1, B=2. Input array must be in increasing order
         int width = image.getWidth();
         int height = image.getHeight();
@@ -124,5 +124,31 @@ public class Helpers{
         System.out.println("First three ints hidden in given list of Bytes: ");
         System.out.println("Big Endian: " + intOneBigEndian + ", " + intTwoBigEndian+ ", " + intThreeBigEndian);
         System.out.println("Little Endian: " + intOneLittleEndian + ", " + intTwoLittleEndian+ ", " + intThreeLittleEndian);
+    }
+    public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColors(BufferedImage image, int[] colors, int[] whichBits){
+        //int[] bits should be [2,1] for two least sig 2 bits and [1] for LSB
+        //[3,2,1] for least sig 3 bits
+        //This method takes in a list of color channels and a least of bits (3rd lsb, 2nd lsb, 1st lsb)
+        //and returns a list of those bits
+            //TODO test this method
+        //I think this does in fact work based on a quick test
+        //Pull LSBs of one color channel. R=0, G=1, B=2. Input array must be in increasing order
+        int width = image.getWidth();
+        int height = image.getHeight();
+       // System.out.println("Height: " + height + " Width: " + width);
+        
+        LinkedList<Integer> bits = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int r = 0; r < height; r++) {
+            for (int c = 0; c < width; c++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                for (int i : colors){
+                    for (int j: whichBits){
+                        bits.add(pixels[i] & (int) Math.pow(2,j-1)); 
+                    }
+                }
+            }
+        }
+        return bits;    
     }
 }
