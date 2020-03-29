@@ -133,6 +133,7 @@ public class Helpers{
             //TODO test this method
         //I think this does in fact work based on a quick test
         //Pull LSBs of one color channel. R=0, G=1, B=2. Input array must be in increasing order
+        //like in pullLSBsOfSpecificColors
         int width = image.getWidth();
         int height = image.getHeight();
        // System.out.println("Height: " + height + " Width: " + width);
@@ -150,5 +151,26 @@ public class Helpers{
             }
         }
         return bits;    
+    }
+    public static LinkedList<Integer> getPixelTotalValues(BufferedImage image){
+        //TODO test
+        //gets total value of RGB channels from and image
+        //returns a linked list of ints between 0 and 765
+        int width = image.getWidth();
+        int height = image.getHeight();
+        
+        LinkedList<Integer> pixelValues = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int r = 0; r < height; r++) {
+            for (int c = 0; c < width; c++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                int pixelVal = 0;
+                pixelVal += pixels[0];
+                pixelVal += pixels[1];
+                pixelVal += pixels[2];
+                pixelValues.add(pixelVal);
+            }
+        }
+        return pixelValues; 
     }
 }
