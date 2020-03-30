@@ -24,14 +24,20 @@ public class Stats{
         }//I totally used data structures knowledge and switched from a LL to an Array
         // because I wanted O(1) indexing later and I think that's cool lol
 
-        int[] offByOnes = new int[10];
-        int pixelDiff;
-        for (int i = 0; i<10; i++){
+        int[] offByOnes = new int[50];
+        int pixelDiffLeftRight;
+        int pixelDiffUpDown;
+        for (int i = 0; i<50; i++){
             for (int j = messageLength*i; j<messageLength*(i+1); j++){
-                pixelDiff = pixelsArray.get(j)-pixelsArray.get(j+1);
-                if (pixelDiff<=3 && pixelDiff >0 ){
+                pixelDiffLeftRight = pixelsArray.get(j)-pixelsArray.get(j+1);
+                if (pixelDiffLeftRight<=3 && pixelDiffLeftRight >0 ){
                     offByOnes[i]++;
                 }
+                pixelDiffUpDown = pixelsArray.get(j)-pixelsArray.get(j+image.getWidth());
+                if (pixelDiffUpDown<=3 && pixelDiffUpDown >0 ){
+                    offByOnes[i]++;
+                }
+
             }
         }
         for (int i : offByOnes){
@@ -42,6 +48,22 @@ public class Stats{
         //if no message length specifed, do it with 1000
         computeOffByOnes(image, 1000);
     }
-
+    public static void printRGBSums(BufferedImage image){
+        ArrayList<Integer> rgbSums= new ArrayList<Integer>();//for O(1) indexing in later loop
+        for (Integer i : Helpers.getPixelTotalValues(image)){
+            rgbSums.add(i);
+        }
+        for (int i=0; i<10000; i++){
+            //length can be changed
+            System.out.println(rgbSums.get(i));
+        }
+        /*
+        Basically, this prints out the sum of the RGB channels for the first 10,000
+        pixels in the image. If you look at the image, the top row (the first several hundred pixels)
+        appears to be all 0's (it's transparent so you see the background) but when we run this,
+        it shows up as not all 0, which means that the LSBs are one's instead of the
+        0's that it looks like they should be. That also happens to be where we know there's a message hidden
+        */
+    }
 
 }
