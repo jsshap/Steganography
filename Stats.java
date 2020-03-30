@@ -16,6 +16,9 @@ public class Stats{
         //it outputs 468, 134, 161 which shows there are more offByOnes when there is a message
         //if you do it with length 1000, you can clearly see where the image is
 
+        //TODO make it take in range of pixels (of what looks likes solid color)
+        //See BUfferedImage.subImage() maybe
+
 
         LinkedList<Integer> pixels = Helpers.getPixelTotalValues(image);
         ArrayList<Integer> pixelsArray = new ArrayList<Integer>();
