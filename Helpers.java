@@ -154,7 +154,7 @@ public class Helpers{
     }
     public static LinkedList<Integer> getPixelTotalValues(BufferedImage image){
         //gets total value of RGB channels from and image
-        //returns a linked list of ints between 0 and 765
+        //returns a linked list of ints between 0 and 795
         int width = image.getWidth();
         int height = image.getHeight();
         
@@ -194,8 +194,8 @@ public class Helpers{
         return image;
     }
 
-    public static void switchColors(int[] a, int[] b){
-        //TODO write
+    public static void switchColors(BufferedImage image){
+        //TODO write this
         //swaps R,G,B channel values
         //might be useful if an image is stored but not in normal RGB order
     }
