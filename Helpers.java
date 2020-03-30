@@ -54,19 +54,6 @@ public class Helpers{
         return bytes;
 
     }
-    public static String convertBytesToString(LinkedList<Integer> bytes){
-        LinkedList<Integer> localBytes = new LinkedList<Integer>();
-        for (Integer i : bytes){localBytes.add(i);}//Copies bytes into a local variable
-        //This method should not modify the List called bytes, rather copy it and
-        //modify the local version
-        String toReturn = "";
-        //insert code here to throwaway header/garbage bytes
-        for (int i=0; i<100; i++){//change this line if you want to specify length
-            toReturn += (char) localBytes.removeFirst().intValue();
-        }
-
-        return toReturn;
-    }
     public static LinkedList<Integer> pullRGBSecondLSBs(BufferedImage image){
         //TODO test this
         int width = image.getWidth();
@@ -172,33 +159,12 @@ public class Helpers{
         }
         return pixelValues; 
     }
-    public static BufferedImage convertBytesToImage(LinkedList<Integer> bytes, int height, int width){
-        LinkedList<Integer> localBytes = new LinkedList<Integer>();
-        for (Integer i : bytes){
-            localBytes.add(i);
-        }
-        //now turn local bytes into a png
-        BufferedImage image = new BufferedImage (width, height, 6);//just trust the constant
-        WritableRaster raster = image.getRaster();
-        for (int xx =0; xx< width; xx++) {
-            for (int yy = 0; yy< height; yy++){
-                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                for (int l=0; l<3; l++){
-                    int byte1 = localBytes.removeFirst();
-                    pixels[l]=byte1;
-                    pixels [3]=255; 
-                }
-                raster.setPixel(xx, yy, pixels);
-            }
-        }
-        return image;
-    }
     public static void switchColors(BufferedImage image){
         //TODO write this
         //swaps R,G,B channel values
         //might be useful if an image is stored but not in normal RGB order
     }
-    public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int howManyBytes){
+    public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int howManyBytes, int [] colors){
         //This just pulls the bytes straight from an image. He may give us something that looks
         //like noise but is actually a message
         int bytesAdded=0;
@@ -207,7 +173,7 @@ public class Helpers{
         for (int xx =0; xx< image.getWidth(); xx++) {
             for (int yy = 0; yy< image.getHeight(); yy++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-                for (int l=0; l<3; l++){
+                for (int l : colors){
                     bytes.add(pixels[l]);
                     bytesAdded++;
                     if (bytesAdded == howManyBytes){
@@ -219,7 +185,11 @@ public class Helpers{
         return bytes;
     }
     public static LinkedList<Integer> getBytesOfImage(BufferedImage image){
-        return getBytesOfImage(image, (getNumberOfPixels(image)*3));
+        int [] allThree = {0,1,2};
+        return getBytesOfImage(image, (getNumberOfPixels(image)*3), allThree);
+    }
+    public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int[] colors){
+        return getBytesOfImage(image, (getNumberOfPixels(image)*3), colors);
     }
     public static int getNumberOfPixels(BufferedImage image){
         return image.getWidth()*image.getHeight();
