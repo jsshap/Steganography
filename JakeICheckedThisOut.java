@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public class MataiCheckThisOut{
+public class JakeICheckedThisOut{
 
     
     public static void main(String[] args) throws Exception {
@@ -20,8 +20,8 @@ public class MataiCheckThisOut{
         Pretty cool
         Not 100% sure how to use this, but it will help
 
-
-
+        edit from matai: yo this is sweet
+        
         */
 
         

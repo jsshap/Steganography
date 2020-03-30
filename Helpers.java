@@ -195,4 +195,12 @@ public class Helpers{
         }
         return image;
     }
+
+    public static void switchColors(int[] a, int[] b){
+        //to be written
+        //swaps R,G,B channel values
+        //might be useful if an image is stored but not in normal RGB order
+    }
+
+    
 }
