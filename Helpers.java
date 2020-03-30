@@ -193,7 +193,6 @@ public class Helpers{
         }
         return image;
     }
-
     public static void switchColors(BufferedImage image){
         //TODO write this
         //swaps R,G,B channel values
@@ -220,6 +219,9 @@ public class Helpers{
         return bytes;
     }
     public static LinkedList<Integer> getBytesOfImage(BufferedImage image){
-        return getBytesOfImage(image, (image.getHeight()*image.getWidth()*3));
+        return getBytesOfImage(image, (getNumberOfPixels(image)*3));
+    }
+    public static int getNumberOfPixels(BufferedImage image){
+        return image.getWidth()*image.getHeight();
     }
 }

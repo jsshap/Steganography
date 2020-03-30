@@ -68,11 +68,6 @@ public class Stats{
         0's that it looks like they should be. That also happens to be where we know there's a message hidden
         */
     }
-
-    public static int getAmountOfPixels(){
-        //just to quickly get the amount of pixels a given image has
-    }
-
     public static void examineHighFrequencies (){
         //not sure how to do this exactly yet
         //purpose is to look into the frequencies of jpeg images
