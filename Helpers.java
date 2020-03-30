@@ -153,7 +153,6 @@ public class Helpers{
         return bits;    
     }
     public static LinkedList<Integer> getPixelTotalValues(BufferedImage image){
-        //TODO test
         //gets total value of RGB channels from and image
         //returns a linked list of ints between 0 and 765
         int width = image.getWidth();
@@ -179,7 +178,6 @@ public class Helpers{
             localBytes.add(i);
         }
         //now turn local bytes into a png
-        //TODO write the method
         BufferedImage image = new BufferedImage (width, height, 6);//just trust the constant
         WritableRaster raster = image.getRaster();
         for (int xx =0; xx< width; xx++) {
@@ -197,10 +195,9 @@ public class Helpers{
     }
 
     public static void switchColors(int[] a, int[] b){
-        //to be written
+        //TODO write
         //swaps R,G,B channel values
         //might be useful if an image is stored but not in normal RGB order
     }
-
     
 }

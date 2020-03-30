@@ -2,18 +2,22 @@
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
-//original example from
-// w w w  . jav  a 2s  . com
 import javax.imageio.ImageIO;
 
 public class FilterFromClass {
 
-    public static void main(String[] args) throws Exception {
-	String imageName = args [0];
-        BufferedImage img = colorImage(ImageIO.read(new File(imageName)));
-        ImageIO.write(img, "png", new File("altered_java.png"));
-    }
+    //THIS CLASS IS OBSOLETE NOW. colorImage is now encapsulated in VisualInspection
+    //just run using [0,1,2]
 
+    public static void main(String[] args) throws Exception {
+    String imageName = args [0];
+    int[] colors = {0,1,2};
+        BufferedImage img = VisualInspection.amplifyLSBs(ImageIO.read(new File(imageName)), colors, 1);
+        //BufferedImage img2 = colorImage(ImageIO.read(new File(imageName)));
+        ImageIO.write(img, "png", new File("altered_java.png"));
+        //ImageIO.write(img2, "png", new File("altered_java1.png"));
+    }
+    /*
     private static BufferedImage colorImage(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
@@ -29,5 +33,5 @@ public class FilterFromClass {
             }
         }
         return image;
-    }
+    }*/
 }
