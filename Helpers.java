@@ -132,7 +132,7 @@ public class Helpers{
                 int[] pixels = raster.getPixel(c, r, (int[]) null);
                 for (int i : colors){
                     for (int j: whichBits){
-                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>j-1); 
+                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
                     }
                 }
             }
