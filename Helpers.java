@@ -167,6 +167,7 @@ public class Helpers{
     public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int howManyBytes, int [] colors){
         //This just pulls the bytes straight from an image. He may give us something that looks
         //like noise but is actually a message
+        //Colors is which colors you want pulled and how ManyBytes is the number you want to grab total
         int bytesAdded=0;
         LinkedList<Integer> bytes = new LinkedList<Integer>();
         WritableRaster raster = image.getRaster();
@@ -185,13 +186,30 @@ public class Helpers{
         return bytes;
     }
     public static LinkedList<Integer> getBytesOfImage(BufferedImage image){
+        //if no number of bytes and no colors specirfied, grab all bytes, all colors
         int [] allThree = {0,1,2};
         return getBytesOfImage(image, (getNumberOfPixels(image)*3), allThree);
     }
     public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int[] colors){
+        //if no number of bytes specified, grab all of them
         return getBytesOfImage(image, (getNumberOfPixels(image)*3), colors);
     }
     public static int getNumberOfPixels(BufferedImage image){
         return image.getWidth()*image.getHeight();
+    }
+    public static LinkedList<Integer> bitify(LinkedList<Integer> a){
+        //bitifies
+        // ex: {255,0,7} -> {1,0,1}
+        //might be useful if pixels themselves are the bits
+        LinkedList<Integer> localList = new LinkedList<Integer>();
+        for (Integer i : a){
+            localList.add(i);
+        }
+        for (Integer i : localList){
+            if (i!=0){
+                i=1;
+            }
+        }
+        return localList;
     }
 }

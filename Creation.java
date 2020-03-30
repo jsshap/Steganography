@@ -1,11 +1,12 @@
 import java.util.LinkedList;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import java.awt.image.WritableRaster;
 public class Creation {
 
     public static BufferedImage convertBytesToImage(LinkedList<Integer> bytes, int height, int width, int[] colors){
+        //If you use an array for colors, you must be sure that you have the right number of bytes in the list
+        //If, for example, you only have red bytes in your list bc you pulled red bytes from another image, then you would but array {0} as an arg
+        
         LinkedList<Integer> localBytes = new LinkedList<Integer>();
         for (Integer i : bytes){
             localBytes.add(i);
@@ -27,6 +28,7 @@ public class Creation {
         return image;
     }
     public static BufferedImage convertBytesToImage(LinkedList<Integer> bytes, int height, int width){
+        //if no specirfic colors specified, do all three
         return convertBytesToImage(bytes,height,width, new int[]{0,1,2});
     }
     public static String convertBytesToString(LinkedList<Integer> bytes){
