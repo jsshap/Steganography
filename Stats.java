@@ -16,6 +16,9 @@ public class Stats{
         //it outputs 468, 134, 161 which shows there are more offByOnes when there is a message
         //if you do it with length 1000, you can clearly see where the image is
 
+        //TODO make it take in range of pixels (of what looks likes solid color)
+        //See BUfferedImage.subImage() maybe
+
 
         LinkedList<Integer> pixels = Helpers.getPixelTotalValues(image);
         ArrayList<Integer> pixelsArray = new ArrayList<Integer>();
@@ -24,14 +27,20 @@ public class Stats{
         }//I totally used data structures knowledge and switched from a LL to an Array
         // because I wanted O(1) indexing later and I think that's cool lol
 
-        int[] offByOnes = new int[10];
-        int pixelDiff;
-        for (int i = 0; i<10; i++){
+        int[] offByOnes = new int[50];
+        int pixelDiffLeftRight;
+        int pixelDiffUpDown;
+        for (int i = 0; i<50; i++){
             for (int j = messageLength*i; j<messageLength*(i+1); j++){
-                pixelDiff = pixelsArray.get(j)-pixelsArray.get(j+1);
-                if (pixelDiff<=3 && pixelDiff >0 ){
+                pixelDiffLeftRight = pixelsArray.get(j)-pixelsArray.get(j+1);
+                if (pixelDiffLeftRight<=3 && pixelDiffLeftRight >0 ){
                     offByOnes[i]++;
                 }
+                pixelDiffUpDown = pixelsArray.get(j)-pixelsArray.get(j+image.getWidth());
+                if (pixelDiffUpDown<=3 && pixelDiffUpDown >0 ){
+                    offByOnes[i]++;
+                }
+
             }
         }
         for (int i : offByOnes){
@@ -42,6 +51,31 @@ public class Stats{
         //if no message length specifed, do it with 1000
         computeOffByOnes(image, 1000);
     }
+    public static void printRGBSums(BufferedImage image){
+        ArrayList<Integer> rgbSums= new ArrayList<Integer>();//for O(1) indexing in later loop
+        for (Integer i : Helpers.getPixelTotalValues(image)){
+            rgbSums.add(i);
+        }
+        for (int i=0; i<10000; i++){
+            //length can be changed
+            System.out.println(rgbSums.get(i));
+        }
+        /*
+        Basically, this prints out the sum of the RGB channels for the first 10,000
+        pixels in the image. If you look at the image, the top row (the first several hundred pixels)
+        appears to be all 0's (it's transparent so you see the background) but when we run this,
+        it shows up as not all 0, which means that the LSBs are one's instead of the
+        0's that it looks like they should be. That also happens to be where we know there's a message hidden
+        */
+    }
 
+    public static int getAmountOfPixels(){
+        //just to quickly get the amount of pixels a given image has
+    }
+
+    public static void examineHighFrequencies (){
+        //not sure how to do this exactly yet
+        //purpose is to look into the frequencies of jpeg images
+    }
 
 }

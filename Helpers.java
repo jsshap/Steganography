@@ -199,5 +199,27 @@ public class Helpers{
         //swaps R,G,B channel values
         //might be useful if an image is stored but not in normal RGB order
     }
-    
+    public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int howManyBytes){
+        //This just pulls the bytes straight from an image. He may give us something that looks
+        //like noise but is actually a message
+        int bytesAdded=0;
+        LinkedList<Integer> bytes = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int xx =0; xx< image.getWidth(); xx++) {
+            for (int yy = 0; yy< image.getHeight(); yy++){
+                int[] pixels = raster.getPixel(xx, yy, (int[]) null);
+                for (int l=0; l<3; l++){
+                    bytes.add(pixels[l]);
+                    bytesAdded++;
+                    if (bytesAdded == howManyBytes){
+                        return bytes;
+                    }
+                }
+            }
+        }
+        return bytes;
+    }
+    public static LinkedList<Integer> getBytesOfImage(BufferedImage image){
+        return getBytesOfImage(image, (image.getHeight()*image.getWidth()*3));
+    }
 }
