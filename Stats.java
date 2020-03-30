@@ -72,5 +72,13 @@ public class Stats{
         //not sure how to do this exactly yet
         //purpose is to look into the frequencies of jpeg images
     }
-
+    public static int numZeroBytes(LinkedList<Integer> bytes){
+        int num = 0;
+        for (Integer i : bytes){
+            if (i==0){
+                num++;
+            }
+        }
+        return num;
+    }
 }
