@@ -205,11 +205,15 @@ public class Helpers{
         for (Integer i : a){
             localList.add(i);
         }
-        for (Integer i : localList){
-            if (i!=0){
-                i=1;
+        LinkedList<Integer> toReturn = new LinkedList<Integer>();
+        while (!localList.isEmpty()){
+            int i = localList.removeFirst();
+            if (i==0){
+                toReturn.add(i);
             }
+            else
+                toReturn.add(1);
         }
-        return localList;
+        return toReturn;
     }
 }

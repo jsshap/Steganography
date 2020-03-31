@@ -20,23 +20,41 @@ public class FindMikki{
         //BufferedImage toWrite= Creation.convertBytesToImage(testBytes, 80, 60);
 
         //addImage (bigGreen, mikki);
-        //ImageIO.write(bigGreen, "png", new File("bigGreenWithMikki.png"));
-        BufferedImage carrier = ImageIO.read(new File("bigGreenWithMikki.png"));
-        //LinkedList<Integer> carrierBits = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{0,1,2}, new int[]{8});
-        //for (Integer i : carrierBits){
-        //    System.out.print(i);
-        //}
-        VisualInspection.amplifyLSBs(carrier, new int[]{0,1,2}, 8);
+        //ImageIO.write(bigGreen, "png", new File("bigGreenWithMikkiInBlue.png"));
+        BufferedImage carrier = ImageIO.read(new File("bigGreenWithMikkiInBlue.png"));
+        
+
+        //AFTER HERE
+        VisualInspection.amplifyLSBs(carrier, new int[]{2}, 8);
+        LinkedList<Integer> blueBytes=(Helpers.getBytesOfImage(carrier, new int[]{2}));
+        for (Integer i : blueBytes)
+            if (i!=255 && i !=0){
+                System.out.println("FUCK");
+            }
+        LinkedList<Integer> bits = Helpers.bitify(blueBytes);
+        for (Integer i : bits)
+            if (i!=1 && i !=0){
+                System.out.println("FUCK2");
+            }
 
 
-        LinkedList<Integer> MSBs = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{0,1,2}, new int[]{8});
-        LinkedList<Integer> bytes = Helpers.convertBitsToBytes(MSBs);
-        BufferedImage toWrite = Creation.convertBytesToImage(bytes, 594, 400);
+        LinkedList<Integer> a = Helpers.convertBitsToBytes(bits);
+        
+
+        //BEFORE HERE, something is wrong
+
+        BufferedImage toWrite = Creation.convertBytesToImage(a, 594, 133);
+        //ImageIO.write(carrier, "png", new File("jakematai.png"));
+
+       //LinkedList<Integer> MSBs = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{2}, new int[]{8});
+       //LinkedList<Integer> bytes = Helpers.convertBitsToBytes(MSBs);
+       //System.out.println(bytes);
+       //BufferedImage toWrite = Creation.convertBytesToImage(bytes, 594, 133);
 
 
 
 
-        ImageIO.write(toWrite, "png", new File("mikki?.png"));
+        ImageIO.write(toWrite, "png", new File("mikkiOutOfBlueDifferent?.png"));
 
 
     }
@@ -54,15 +72,15 @@ public class FindMikki{
                 int[] pixels = raster.getPixel(yy, xx, (int[]) null);
                 if (mikkiBits.isEmpty())
                     return;
-                for (int i=0; i <pixels.length; i++){
-                    int bit = mikkiBits.removeFirst();
+                
+                int bit = mikkiBits.removeFirst();
 
                    // System.out.println("i="+pixels[i]);
                    // System.out.println("Bit = "+ bit);
-                    pixels[i] = pixels[i] & 127;
-                    pixels[i] = pixels[i] | bit*128;
+                pixels[2] = pixels[2] & 127;
+                pixels[2] = pixels[2] | bit*128;
                    // System.out.println("now i = "+pixels[i]);
-                }
+                
                 raster.setPixel(yy, xx, pixels);
                 bitsAdded++;
                 if (bitsAdded+1==mikkiSize)
