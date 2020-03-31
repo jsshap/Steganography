@@ -216,4 +216,14 @@ public class Helpers{
         }
         return toReturn;
     }
+    public static LinkedList<Integer> convertBytesToBits(LinkedList<Integer> bytes){
+        LinkedList<Integer> bits = new LinkedList<Integer>();
+        for (Integer i : bytes){
+            for (int j = 7; j >-1; j-- ){
+                bits.add( i >> j & 1);
+            }
+        }
+        return bits;
+
+    }
 }
