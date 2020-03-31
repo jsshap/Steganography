@@ -14,8 +14,8 @@ public class Creation {
         //now turn local bytes into a png
         BufferedImage image = new BufferedImage (width, height, 6);//just trust the constant
         WritableRaster raster = image.getRaster();
-        for (int xx =0; xx< width; xx++) {
-            for (int yy = 0; yy< height; yy++){
+        for (int yy =0; yy< height; yy++) {
+            for (int xx = 0; xx< width; xx++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
                 for (int l:colors){
                     int byte1 = localBytes.removeFirst();

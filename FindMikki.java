@@ -19,12 +19,12 @@ public class FindMikki{
         //    testBytes.removeFirst();
         //BufferedImage toWrite= Creation.convertBytesToImage(testBytes, 80, 60);
 
-        //addImage (bigGreen, mikki);
-        //ImageIO.write(bigGreen, "png", new File("bigGreenWithMikkiInBlue.png"));
-        BufferedImage carrier = ImageIO.read(new File("bigGreenWithMikkiInBlue.png"));
+        addImage (bigGreen, mikki);
+        ImageIO.write(bigGreen, "png", new File("bigGreenWithMikkiIn2LSB.png"));
+        BufferedImage carrier = ImageIO.read(new File("bigGreenWithMikkiIn2LSB.png"));
         
         
-
+        /*
 
 
         VisualInspection.amplifyLSBs(carrier, new int[]{2}, 8);
@@ -34,22 +34,22 @@ public class FindMikki{
 
         LinkedList<Integer> a = Helpers.convertBitsToBytes(bits);
         
+*/
 
 
-
-        BufferedImage toWrite = Creation.convertBytesToImage(a, 594, 133);
+        //BufferedImage toWrite = Creation.convertBytesToImage(a, 594, 133);
         //ImageIO.write(carrier, "png", new File("jakematai.png"));
 
-       LinkedList<Integer> MSBs = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{2}, new int[]{8});
-       //LinkedList<Integer> bytes = Helpers.convertBitsToBytes(MSBs);
+       LinkedList<Integer> MSBs = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{2}, new int[]{2,1});
+       LinkedList<Integer> bytes = Helpers.convertBitsToBytes(MSBs);
        //System.out.println(MSBs);
        //System.out.println(bytes);
-       //BufferedImage toWrite = Creation.convertBytesToImage(bytes, 594, 133);
+       BufferedImage toWrite = Creation.convertBytesToImage(bytes, 233, 594);
 
 
 
 
-        ImageIO.write(toWrite, "png", new File("mikkiOutOfBlueDifferent?.png"));
+        ImageIO.write(toWrite, "png", new File("mikkiOutOfBlueDifferent2?.png"));
 
 
     }
@@ -68,13 +68,15 @@ public class FindMikki{
                 if (mikkiBits.isEmpty())
                     return;
                 
-                int bit = mikkiBits.removeFirst();
+                int bit1 = mikkiBits.removeFirst();
+                
 
-                   // System.out.println("i="+pixels[i]);
-                   // System.out.println("Bit = "+ bit);
-                pixels[2] = pixels[2] & 127;
-                pixels[2] = pixels[2] | bit*128;
-                   // System.out.println("now i = "+pixels[i]);
+                pixels[2] = pixels[2] & 252;
+                
+                int bit2= mikkiBits.removeFirst();
+                pixels[2] = pixels[2] | bit1*2;
+                
+                pixels[2]=pixels[2]|bit2;
                 
                 raster.setPixel(yy, xx, pixels);
                 bitsAdded++;
