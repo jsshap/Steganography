@@ -23,31 +23,26 @@ public class FindMikki{
         //ImageIO.write(bigGreen, "png", new File("bigGreenWithMikkiInBlue.png"));
         BufferedImage carrier = ImageIO.read(new File("bigGreenWithMikkiInBlue.png"));
         
+        
 
-        //AFTER HERE
+
+
         VisualInspection.amplifyLSBs(carrier, new int[]{2}, 8);
         LinkedList<Integer> blueBytes=(Helpers.getBytesOfImage(carrier, new int[]{2}));
-        for (Integer i : blueBytes)
-            if (i!=255 && i !=0){
-                System.out.println("FUCK");
-            }
+ 
         LinkedList<Integer> bits = Helpers.bitify(blueBytes);
-        for (Integer i : bits)
-            if (i!=1 && i !=0){
-                System.out.println("FUCK2");
-            }
-
 
         LinkedList<Integer> a = Helpers.convertBitsToBytes(bits);
         
 
-        //BEFORE HERE, something is wrong
+
 
         BufferedImage toWrite = Creation.convertBytesToImage(a, 594, 133);
         //ImageIO.write(carrier, "png", new File("jakematai.png"));
 
-       //LinkedList<Integer> MSBs = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{2}, new int[]{8});
+       LinkedList<Integer> MSBs = Helpers.pullSpecifiedBitsOfSpecificColors(carrier, new int[]{2}, new int[]{8});
        //LinkedList<Integer> bytes = Helpers.convertBitsToBytes(MSBs);
+       //System.out.println(MSBs);
        //System.out.println(bytes);
        //BufferedImage toWrite = Creation.convertBytesToImage(bytes, 594, 133);
 

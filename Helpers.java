@@ -171,8 +171,9 @@ public class Helpers{
         int bytesAdded=0;
         LinkedList<Integer> bytes = new LinkedList<Integer>();
         WritableRaster raster = image.getRaster();
-        for (int xx =0; xx< image.getWidth(); xx++) {
-            for (int yy = 0; yy< image.getHeight(); yy++){
+        //Swtich xx, yy, height, width in the loop headers to grab bits vertically
+        for (int yy =0; yy< image.getHeight(); yy++) {
+            for (int xx = 0; xx< image.getWidth(); xx++){
                 int[] pixels = raster.getPixel(xx, yy, (int[]) null);
                 for (int l : colors){
                     bytes.add(pixels[l]);
@@ -209,7 +210,7 @@ public class Helpers{
         while (!localList.isEmpty()){
             int i = localList.removeFirst();
             if (i==0){
-                toReturn.add(i);
+                toReturn.add(0);
             }
             else
                 toReturn.add(1);
