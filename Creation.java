@@ -31,17 +31,21 @@ public class Creation {
         //if no specirfic colors specified, do all three
         return convertBytesToImage(bytes,height,width, new int[]{0,1,2});
     }
-    public static String convertBytesToString(LinkedList<Integer> bytes){
+    public static String convertBytesToString(LinkedList<Integer> bytes, int length){
         LinkedList<Integer> localBytes = new LinkedList<Integer>();
         for (Integer i : bytes){localBytes.add(i);}//Copies bytes into a local variable
         //This method should not modify the List called bytes, rather copy it and
         //modify the local version
         String toReturn = "";
         //insert code here to throwaway header/garbage bytes
-        for (int i=0; i<100; i++){//change this line if you want to specify length
+        for (int i=0; i<length; i++){//change this line if you want to specify length
             toReturn += (char) localBytes.removeFirst().intValue();
         }
 
         return toReturn;
+    }
+    public static String convertBytesToString(LinkedList<Integer> bytes){
+        //if no length specified, do 500
+        return convertBytesToString(bytes, 500);
     }
 }
