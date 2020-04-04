@@ -36,10 +36,13 @@ public class Creation {
         for (Integer i : bytes){localBytes.add(i);}//Copies bytes into a local variable
         //This method should not modify the List called bytes, rather copy it and
         //modify the local version
-        String toReturn = "";
+        String toReturn = "Done";
         //insert code here to throwaway header/garbage bytes
         for (int i=0; i<length; i++){//change this line if you want to specify length
-            toReturn += (char) localBytes.removeFirst().intValue();
+            int temp = localBytes.removeFirst().intValue();
+            if ((temp > 64 & temp < 91) | (temp > 96 & temp < 123) | temp ==32 | temp == 10)
+                System.out.print((char)temp);
+            //toReturn += (char) localBytes.removeFirst().intValue();
         }
 
         return toReturn;

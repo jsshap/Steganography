@@ -25,7 +25,7 @@ public class Stats{
         for (Integer i: pixels){
             pixelsArray.add(i);
         }//I totally used data structures knowledge and switched from a LL to an Array
-        // because I wanted O(1) indexing later and I think that's cool lol
+        // because I wanted O(1) indexing later and I think that's cool lol <- noice
 
         int[] offByOnes = new int[50];
         int pixelDiffLeftRight;
