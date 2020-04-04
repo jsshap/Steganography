@@ -230,4 +230,25 @@ public class Helpers{
         return bits;
 
     }
+
+    public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColorsVertical(BufferedImage image, int[] colors, int[] whichBits){
+        
+        int width = image.getWidth();
+        int height = image.getHeight();
+    // System.out.println("Height: " + height + " Width: " + width);
+        
+        LinkedList<Integer> bits = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int c = 0; c < width; c++) {
+            for (int r = 0; r < height; r++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                for (int i : colors){
+                    for (int j: whichBits){
+                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
+                    }
+                }
+            }
+        }
+        return bits;  
+    }  
 }
