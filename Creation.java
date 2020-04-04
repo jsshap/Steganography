@@ -31,7 +31,8 @@ public class Creation {
         //if no specirfic colors specified, do all three
         return convertBytesToImage(bytes,height,width, new int[]{0,1,2});
     }
-    public static String convertBytesToString(LinkedList<Integer> bytes, int length){
+    public static String convertBytesToStringOriginal(LinkedList<Integer> bytes, int length){
+        //MATAI, please don't delete, just add your new method.
         LinkedList<Integer> localBytes = new LinkedList<Integer>();
         for (Integer i : bytes){localBytes.add(i);}//Copies bytes into a local variable
         //This method should not modify the List called bytes, rather copy it and
@@ -47,8 +48,8 @@ public class Creation {
 
         return toReturn;
     }
-    public static String convertBytesToString(LinkedList<Integer> bytes){
+    public static String convertBytesToStringOriginal(LinkedList<Integer> bytes){
         //if no length specified, do 500
-        return convertBytesToString(bytes, 500);
+        return convertBytesToStringOriginal(bytes, 500);
     }
 }

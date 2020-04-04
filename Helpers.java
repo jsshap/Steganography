@@ -23,9 +23,8 @@ public class Helpers{
     }
     public static LinkedList<Integer> convertBitsToBytes(LinkedList<Integer> bits){
         //Make a copy of bits, so it is not modified outside this method. only alter the copy
-        LinkedList<Integer> localBits = new LinkedList<Integer>();
-        for(Integer i: bits){localBits.add(i);}
-        System.out.println(localBits.size());
+        //LinkedList<Integer> localBits = new LinkedList<Integer>();
+        //for(Integer i: bits){localBits.add(i);}
 
         LinkedList<Integer> bytes = new LinkedList<Integer>();
         //int size=bits.size();
@@ -36,11 +35,11 @@ public class Helpers{
         }*/
         
 
-        while (localBits.size()>7){
+        while (bits.size()>7){
             int nextByte=0;
                 for (int i=0; i<8; i++){
                     
-                    nextByte+=localBits.removeFirst()*((int) Math.pow(2, 7-i));
+                    nextByte+=bits.removeFirst()*((int) Math.pow(2, 7-i));
                     
                 }
             bytes.add(nextByte);
@@ -96,13 +95,16 @@ public class Helpers{
     }
     public static void checkForHeader(LinkedList<Integer> bytes){
         //Print out the first three ints in big and little endian. as 32 bit ints
-        int[] firstBytes = new int[12];
-        for (int i =0; i < 12; i++){
+        int[] firstBytes = new int[20];
+        for (int i =0; i < 20; i++){
             firstBytes[i]=bytes.get(i);
         }
+        System.out.println(firstBytes[0]);
         int intOneBigEndian= (firstBytes[0]<<24) + (firstBytes[1]<<16)+(firstBytes[2]<<8)+(firstBytes[3]);
         int intTwoBigEndian = (firstBytes[4]<<24) + (firstBytes[5]<<16)+(firstBytes[6]<<8)+(firstBytes[7]);
         int intThreeBigEndian = (firstBytes[8]<<24) + (firstBytes[9]<<16)+(firstBytes[10]<<8)+(firstBytes[11]);
+        int intFourBigEndian = (firstBytes[12]<<24) + (firstBytes[13]<<16)+(firstBytes[14]<<8)+(firstBytes[15]);
+        int intFiveBigEndian = (firstBytes[16]<<24) + (firstBytes[17]<<16)+(firstBytes[18]<<8)+(firstBytes[19]);
 
 
         int intOneLittleEndian = (firstBytes[3]<<24) + (firstBytes[2]<<16)+(firstBytes[1]<<8)+(firstBytes[0]);
@@ -110,7 +112,7 @@ public class Helpers{
         int intThreeLittleEndian= (firstBytes[11]<<24) + (firstBytes[10]<<16)+(firstBytes[9]<<8)+(firstBytes[8]);
 
         System.out.println("First three ints hidden in given list of Bytes: ");
-        System.out.println("Big Endian: " + intOneBigEndian + ", " + intTwoBigEndian+ ", " + intThreeBigEndian);
+        System.out.println("Big Endian: " + intOneBigEndian + ", " + intTwoBigEndian+ ", " + intThreeBigEndian + ", " + intFourBigEndian + ", " + intFiveBigEndian);
         System.out.println("Little Endian: " + intOneLittleEndian + ", " + intTwoLittleEndian+ ", " + intThreeLittleEndian);
     }
     public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColors(BufferedImage image, int[] colors, int[] whichBits){
@@ -228,4 +230,51 @@ public class Helpers{
         return bits;
 
     }
+
+    public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColorsVertical(BufferedImage image, int[] colors, int[] whichBits){
+        
+        int width = image.getWidth();
+        int height = image.getHeight();
+    // System.out.println("Height: " + height + " Width: " + width);
+        
+        LinkedList<Integer> bits = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int c = 0; c < width; c++) {
+            for (int r = 0; r < height; r++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                for (int i : colors){
+                    for (int j: whichBits){
+                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
+                    }
+                }
+            }
+        }
+        return bits;  
+    } 
+    public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColorsShort(BufferedImage image, int[] colors, int[] whichBits){
+        //USE THIS WITH BIG IMAGES
+        int bitsCollected=0;
+        int width = image.getWidth();
+        int height = image.getHeight();
+        LinkedList<Integer> bits = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int r = 0; r < height; r++) {
+            for (int c = 0; c < width; c++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                for (int i : colors){
+                    for (int j: whichBits){
+                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
+                        bitsCollected++;
+                        if (bitsCollected>45000000 && bitsCollected % 8==0){
+                            System.out.println(true);
+                            return bits;}
+                        if (bitsCollected%1000000==0) System.out.println(bitsCollected);
+                        if (bitsCollected==75497472){return bits;}
+                    }
+                }
+            }
+        }
+        return bits;    
+    } 
 }
+

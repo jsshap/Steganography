@@ -4,3 +4,32 @@ FriendlyPupper contains in first LSBs of all colors:
 
 Ehh, I'm not going to write them down. This information probably wouldn't interest anyone."
 
+In Brothers small, I noticed black pixels at the top of All LSB's amplified, and thought it might be a header. I then checked for a header and the first int was 108, so I thought maybe there is a string of that legnth.
+There was: "The next sentence is True.
+The previous sentence is false.
+The previous two sentences are absolute nonsense."
+
+In DogDog, I noticed that amplifying just the red LSB's left a lot of black at the top left, implying a header in just the reds. I checked for a header, found an int (201), and printed that many chars made by the LSB's of red.
+I found: 
+"Wisdom borrowed from Uncle Jimmy.
+When life gives you lemons:
+Throw those lemons on the ground, spit in life's eye, and refuse to leave until you get the damned limes you asked for the in first place."
+
+GadgetRadiator has a header reading top to bottom. That header has the int 25 in it
+
+Blue LSB's of Grooming contain, at the beginning:
+"Give a man a fish, you feed him for a day.
+Give a fish a man, it'll eat for weeks."
+The Green have, in the header, 292 and 300. prob image dimensions??? It is. ImageOutOfGroomingGLSBs.png
+
+
+All of the unnaturalness in grooming's LSB's comes from the greens... I think there is more than jut the one image
+
+AlbumCover red LSB's from left to right have
+"Spellcheck is not enough when ordering from a general-purpose delivery company.
+Learned when I had to fix a circuit board with some smoldering iron."
+Found by checking red header for integer values and finding 169
+
+Red LSB's in header of Brothers have 1536, 2048. Found because a lot of 0 red bits in the top, so I checked red for a header
+
+Check out Floof reds LSB
