@@ -7,17 +7,22 @@ import java.awt.image.WritableRaster;
 public class AlbumCover{
 
     public static void main (String[] args) throws Exception{
-        BufferedImage orig = ImageIO.read(new File("Images/Gadget_medium.png"));
+        BufferedImage orig = ImageIO.read(new File("Images/WinkyFace.png"));
 
         
-        LinkedList<Integer> bits = Helpers.pullSpecifiedBitsOfSpecificColors(orig, new int[]{0,1}, new int[] {2,1});
-        Helpers.checkForHeader(bits);
+        LinkedList<Integer> bits = Helpers.pullSpecifiedBitsOfSpecificColors(orig, new int[]{0,1,2}, new int[] {1});
+        
         LinkedList<Integer> bytes = Helpers.convertBitsToBytes(bits);
-        System.out.println(Creation.convertBytesToString(bytes));
+        Helpers.checkForHeader(bytes);
+        for (int i=0; i<30; i++)
+            System.out.println(bytes.removeFirst());
+        //System.out.println(Creation.convertBytesToString(bytes));
+        
+        
+        //BufferedImage toWrite = Creation.convertBytesToImage(bytes, 400, 256);
+        //VisualInspection.amplifyLSBs(orig, new int[]{1,2}, 1);
 
-        //BufferedImage toWrite = VisualInspection.amplifyLSBs(orig, new int[]{0,1}, 1);
-
-        //ImageIO.write(toWrite, "png", new File("AlbumCover'''''.png"));
+        //ImageIO.write(toWrite, "png", new File("ModifiedJake/GroomingAll2ndLSBsAmplified.png"));
 
 
     }

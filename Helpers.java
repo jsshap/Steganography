@@ -95,13 +95,16 @@ public class Helpers{
     }
     public static void checkForHeader(LinkedList<Integer> bytes){
         //Print out the first three ints in big and little endian. as 32 bit ints
-        int[] firstBytes = new int[12];
-        for (int i =0; i < 12; i++){
+        int[] firstBytes = new int[20];
+        for (int i =0; i < 20; i++){
             firstBytes[i]=bytes.get(i);
         }
+        System.out.println(firstBytes[0]);
         int intOneBigEndian= (firstBytes[0]<<24) + (firstBytes[1]<<16)+(firstBytes[2]<<8)+(firstBytes[3]);
         int intTwoBigEndian = (firstBytes[4]<<24) + (firstBytes[5]<<16)+(firstBytes[6]<<8)+(firstBytes[7]);
         int intThreeBigEndian = (firstBytes[8]<<24) + (firstBytes[9]<<16)+(firstBytes[10]<<8)+(firstBytes[11]);
+        int intFourBigEndian = (firstBytes[12]<<24) + (firstBytes[13]<<16)+(firstBytes[14]<<8)+(firstBytes[15]);
+        int intFiveBigEndian = (firstBytes[16]<<24) + (firstBytes[17]<<16)+(firstBytes[18]<<8)+(firstBytes[19]);
 
 
         int intOneLittleEndian = (firstBytes[3]<<24) + (firstBytes[2]<<16)+(firstBytes[1]<<8)+(firstBytes[0]);
@@ -109,7 +112,7 @@ public class Helpers{
         int intThreeLittleEndian= (firstBytes[11]<<24) + (firstBytes[10]<<16)+(firstBytes[9]<<8)+(firstBytes[8]);
 
         System.out.println("First three ints hidden in given list of Bytes: ");
-        System.out.println("Big Endian: " + intOneBigEndian + ", " + intTwoBigEndian+ ", " + intThreeBigEndian);
+        System.out.println("Big Endian: " + intOneBigEndian + ", " + intTwoBigEndian+ ", " + intThreeBigEndian + ", " + intFourBigEndian + ", " + intFiveBigEndian);
         System.out.println("Little Endian: " + intOneLittleEndian + ", " + intTwoLittleEndian+ ", " + intThreeLittleEndian);
     }
     public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColors(BufferedImage image, int[] colors, int[] whichBits){
