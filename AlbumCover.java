@@ -19,7 +19,7 @@ public class AlbumCover{
         //System.out.println(Creation.convertBytesToStringOriginal(bytes,160));
         
         
-        BufferedImage toWrite = Creation.convertBytesToImage(bytes, 1536, 2048);
+        BufferedImage toWrite = Creation.convertBytesToImage(bytes, 1536, 200);
         //BufferedImage toWrite= VisualInspection.amplifyLSBs(orig, new int[]{0}, 1);
         
         ImageIO.write(toWrite, "png", new File("ModifiedJake/ImageOutOfBrotherRedLSBs.png"));

@@ -23,8 +23,8 @@ public class Helpers{
     }
     public static LinkedList<Integer> convertBitsToBytes(LinkedList<Integer> bits){
         //Make a copy of bits, so it is not modified outside this method. only alter the copy
-        LinkedList<Integer> localBits = new LinkedList<Integer>();
-        for(Integer i: bits){localBits.add(i);}
+        //LinkedList<Integer> localBits = new LinkedList<Integer>();
+        //for(Integer i: bits){localBits.add(i);}
 
         LinkedList<Integer> bytes = new LinkedList<Integer>();
         //int size=bits.size();
@@ -35,11 +35,12 @@ public class Helpers{
         }*/
         
 
-        while (!localBits.isEmpty()){
+        while (!bits.isEmpty()){
+            //System.out.println(bits.size());
             int nextByte=0;
             for (int i=0; i<8; i++){
                 
-                nextByte+=localBits.removeFirst()*((int) Math.pow(2, 7-i));
+                nextByte+=bits.removeFirst()*((int) Math.pow(2, 7-i));
                 
             }
             bytes.add(nextByte);

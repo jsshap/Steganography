@@ -31,3 +31,5 @@ Learned when I had to fix a circuit board with some smoldering iron."
 Found by checking red header for integer values and finding 169
 
 Red LSB's in header of Brothers have 1536, 2048. Found because a lot of 0 red bits in the top, so I checked red for a header
+
+Check out Floof reds LSB
