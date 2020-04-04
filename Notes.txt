@@ -21,3 +21,13 @@ Blue LSB's of Grooming contain, at the beginning:
 "Give a man a fish, you feed him for a day.
 Give a fish a man, it'll eat for weeks."
 The Green have, in the header, 292 and 300. prob image dimensions??? It is. ImageOutOfGroomingGLSBs.png
+
+
+All of the unnaturalness in grooming's LSB's comes from the greens... I think there is more than jut the one image
+
+AlbumCover red LSB's from left to right have
+"Spellcheck is not enough when ordering from a general-purpose delivery company.
+Learned when I had to fix a circuit board with some smoldering iron."
+Found by checking red header for integer values and finding 169
+
+Red LSB's in header of Brothers have 1536, 2048. Found because a lot of 0 red bits in the top, so I checked red for a header

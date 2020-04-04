@@ -250,5 +250,31 @@ public class Helpers{
             }
         }
         return bits;  
-    }  
+    } 
+    public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColorsShort(BufferedImage image, int[] colors, int[] whichBits){
+        //USE THIS WITH BIG IMAGES
+        int bitsCollected=0;
+        int width = image.getWidth();
+        int height = image.getHeight();
+        LinkedList<Integer> bits = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int r = 0; r < height; r++) {
+            for (int c = 0; c < width; c++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                for (int i : colors){
+                    for (int j: whichBits){
+                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
+                        bitsCollected++;
+                        if (bitsCollected>45000000 && bitsCollected % 8==0){
+                            System.out.println(true);
+                            return bits;}
+                        if (bitsCollected%1000000==0) System.out.println(bitsCollected);
+                        if (bitsCollected==75497472){return bits;}
+                    }
+                }
+            }
+        }
+        return bits;    
+    } 
 }
+
