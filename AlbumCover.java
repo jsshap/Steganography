@@ -19,10 +19,12 @@ public class AlbumCover{
         //System.out.println(Creation.convertBytesToStringOriginal(bytes,160));
         
         
-        BufferedImage toWrite = Creation.convertBytesToImage(bytes, 1536, 200);
-        //BufferedImage toWrite= VisualInspection.amplifyLSBs(orig, new int[]{0}, 1);
-        
-        ImageIO.write(toWrite, "png", new File("ModifiedJake/ImageOutOfBrotherRedLSBs.png"));
+        BufferedImage toWrite = Creation.convertBytesToImage(bytes, 400, 512);
+        //BufferedImage toWrite2= VisualInspection.amplifyLSBs(toWrite, new int[]{0,1,2}, 2);
+        //LinkedList<Integer> bits2 = Helpers.pullSpecifiedBitsOfSpecificColorsShort(toWrite, new int[]{0,1,2}, new int[] {2,1});
+        //LinkedList<Integer> bytes2 = Helpers.convertBitsToBytes(bits2);
+        //Helpers.checkForHeader(bytes2);
+        ImageIO.write(toWrite, "png", new File("ModifiedJake/ImageOutOfBrotherRedLSBsWithLSBSAMPLIFIED.png"));
 
 
     }
