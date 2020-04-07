@@ -15,11 +15,12 @@ I found:
 When life gives you lemons:
 Throw those lemons on the ground, spit in life's eye, and refuse to leave until you get the damned limes you asked for the in first place."
 
-GadgetRadiator has a header reading top to bottom. That header has the int 25 in it
+GadgetRadiator has a header reading top to bottom. That header has the int 25 in it. Matai's notes found it
 
 Blue LSB's of Grooming contain, at the beginning:
 "Give a man a fish, you feed him for a day.
 Give a fish a man, it'll eat for weeks."
+
 The Green have, in the header, 292 and 300. prob image dimensions??? It is. ImageOutOfGroomingGLSBs.png
 
 
@@ -30,6 +31,25 @@ AlbumCover red LSB's from left to right have
 Learned when I had to fix a circuit board with some smoldering iron."
 Found by checking red header for integer values and finding 169
 
-Red LSB's in header of Brothers have 1536, 2048. Found because a lot of 0 red bits in the top, so I checked red for a header
+Red LSB's in header of Brothers have 1536, 2048. Found because a lot of 0 red bits in the top, so I checked red for a header. Printing out the red LSB's gave us 4 images overlaying each toher. We split them up
+and combined them properly and then we pulled an image of a dog (150x 200 found in header of image pulled from brothers) from the 2nd LSB's of all colors of the image we pulled from brothers
+Brothers 3 had an image of a dog. 
+Brother 3 Header in 2nd LSB's of all three color channels had 194.
+String was then:
+"At times you can kill two birds with one stone. 
+If you do so, you will be short a stone and will have killed two birds.
+If you don't, you will have a stone and two birds will keep their lives."
 
-Check out Floof reds LSB
+
+MoJoJoJo on couch contains 168, 190 in the vertical header. The image pulled out from all LSBs has 193 in its vertical
+
+PupFriends has, in LSB of all colors:
+"Slow is smooth, smooth is fast."
+It's header had int 32, the length
+
+
+Grass is greener vertical header of all LSBs contains 382, 1037. It contains, in all LSBs, a weird colored picture of dog with width 382
+
+WinkyFace contains a 1536x2048 copy of itself in the two least signifcant bits of all colors. Those ints were in the header
+WinkyFace2, in the Blue LSBs, contains the string: "Q If the OCean is only a couple feet deep? Why havn't we explored it fully yet. A Shark Week."
+In the Green LSBs, it contains a copy of itself, dimension 240x320. That contains the onion string in the Red LSBs

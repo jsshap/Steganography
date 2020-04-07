@@ -16,9 +16,6 @@ public class Stats{
         //it outputs 468, 134, 161 which shows there are more offByOnes when there is a message
         //if you do it with length 1000, you can clearly see where the image is
 
-        //TODO make it take in range of pixels (of what looks likes solid color)
-        //See BUfferedImage.subImage() maybe
-
 
         LinkedList<Integer> pixels = Helpers.getPixelTotalValues(image);
         ArrayList<Integer> pixelsArray = new ArrayList<Integer>();
@@ -67,10 +64,6 @@ public class Stats{
         it shows up as not all 0, which means that the LSBs are one's instead of the
         0's that it looks like they should be. That also happens to be where we know there's a message hidden
         */
-    }
-    public static void examineHighFrequencies (){
-        //not sure how to do this exactly yet
-        //purpose is to look into the frequencies of jpeg images
     }
     public static int numZeroBytes(LinkedList<Integer> bytes){
         int num = 0;

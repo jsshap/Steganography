@@ -5,7 +5,6 @@ public class VisualInspection{
 
     public static BufferedImage amplifyLSBs(BufferedImage image, int[] colors, int whichBit){
         //whichBit is 1 for LSB, 2 for 2nd LSB
-        //TODO test this
         //Given a list of colors (R=0, G=1, B=2) this amplifies the LSB of those channels
         int width = image.getWidth();
         int height = image.getHeight();

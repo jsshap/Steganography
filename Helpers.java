@@ -1,38 +1,17 @@
 import java.util.LinkedList;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.util.ArrayList;
 
 public class Helpers{
 
-    public static LinkedList<Integer> pullRGBLSBs(BufferedImage image){
-        int width = image.getWidth();
-        int height = image.getHeight();
-       // System.out.println("Height: " + height + " Width: " + width);
-        
-        LinkedList<Integer> bits = new LinkedList<Integer>();
-        WritableRaster raster = image.getRaster();
-        for (int r = 0; r < height; r++) {
-            for (int c = 0; c < width; c++) {
-                int[] pixels = raster.getPixel(c, r, (int[]) null);
-                for (int i=0; i<3; i++){
-                    bits.add(pixels[i]&1);
-                }
-            }
-        }
-        return bits;
-    }
+    
     public static LinkedList<Integer> convertBitsToBytes(LinkedList<Integer> bits){
         //Make a copy of bits, so it is not modified outside this method. only alter the copy
-        //LinkedList<Integer> localBits = new LinkedList<Integer>();
-        //for(Integer i: bits){localBits.add(i);}
+        
 
         LinkedList<Integer> bytes = new LinkedList<Integer>();
-        //int size=bits.size();
-        //System.out.println("Length of bits " + bits.size());
-        /*for (int i =0; i<80; i++){
-            if (i%8==0)System.out.println();
-            System.out.print(bits.get(i));
-        }*/
+        
         
 
         while (bits.size()>7){
@@ -45,53 +24,9 @@ public class Helpers{
             bytes.add(nextByte);
         }
 
-        /*for (int i=0; i< 10; i++){
-            System.out.println(bytes.get(i));
-        }
-
-        System.out.println("length of bytes " + bytes.size());
-        System.out.println(bytes.size()*8==size);*/
+        
         return bytes;
 
-    }
-    public static LinkedList<Integer> pullRGBSecondLSBs(BufferedImage image){
-        //TODO test this
-        int width = image.getWidth();
-        int height = image.getHeight();
-       // System.out.println("Height: " + height + " Width: " + width);
-        
-        LinkedList<Integer> bits = new LinkedList<Integer>();
-        WritableRaster raster = image.getRaster();
-        for (int r = 0; r < height; r++) {
-            for (int c = 0; c < width; c++) {
-                int[] pixels = raster.getPixel(c, r, (int[]) null);
-                for (int i=0; i<3; i++){
-                    bits.add(pixels[i]&2);
-                }
-            }
-        }
-        return bits;
-    
-    }
-    public static LinkedList<Integer> pullLSBsOfSpecificColors(BufferedImage image, int[] colors){
-        //TODO test this method
-        //I think this does in fact work based on a quick test
-        //Pull LSBs of one color channel. R=0, G=1, B=2. Input array must be in increasing order
-        int width = image.getWidth();
-        int height = image.getHeight();
-       // System.out.println("Height: " + height + " Width: " + width);
-        
-        LinkedList<Integer> bits = new LinkedList<Integer>();
-        WritableRaster raster = image.getRaster();
-        for (int r = 0; r < height; r++) {
-            for (int c = 0; c < width; c++) {
-                int[] pixels = raster.getPixel(c, r, (int[]) null);
-                for (int i : colors){
-                    bits.add(pixels[i]&1); 
-                }
-            }
-        }
-        return bits;
     }
     public static void checkForHeader(LinkedList<Integer> bytes){
         //Print out the first three ints in big and little endian. as 32 bit ints
@@ -99,7 +34,6 @@ public class Helpers{
         for (int i =0; i < 20; i++){
             firstBytes[i]=bytes.get(i);
         }
-        System.out.println(firstBytes[0]);
         int intOneBigEndian= (firstBytes[0]<<24) + (firstBytes[1]<<16)+(firstBytes[2]<<8)+(firstBytes[3]);
         int intTwoBigEndian = (firstBytes[4]<<24) + (firstBytes[5]<<16)+(firstBytes[6]<<8)+(firstBytes[7]);
         int intThreeBigEndian = (firstBytes[8]<<24) + (firstBytes[9]<<16)+(firstBytes[10]<<8)+(firstBytes[11]);
@@ -120,7 +54,6 @@ public class Helpers{
         //[3,2,1] for least sig 3 bits
         //This method takes in a list of color channels and a least of bits (3rd lsb, 2nd lsb, 1st lsb)
         //and returns a list of those bits
-            //TODO test this method
         //I think this does in fact work based on a quick test
         //Pull LSBs of one color channel. R=0, G=1, B=2. Input array must be in increasing order
         //like in pullLSBsOfSpecificColors
@@ -133,9 +66,9 @@ public class Helpers{
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < width; c++) {
                 int[] pixels = raster.getPixel(c, r, (int[]) null);
-                for (int i : colors){
+                for (int i =0; i<colors.length; i++){
                     for (int j: whichBits){
-                        bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
+                        bits.add((pixels[colors[i]] & ((int) Math.pow(2,j-1)))>>(j-1)); 
                     }
                 }
             }
@@ -161,11 +94,6 @@ public class Helpers{
             }
         }
         return pixelValues; 
-    }
-    public static void switchColors(BufferedImage image){
-        //TODO write this
-        //swaps R,G,B channel values
-        //might be useful if an image is stored but not in normal RGB order
     }
     public static LinkedList<Integer> getBytesOfImage(BufferedImage image, int howManyBytes, int [] colors){
         //This just pulls the bytes straight from an image. He may give us something that looks
@@ -232,10 +160,9 @@ public class Helpers{
     }
 
     public static LinkedList<Integer> pullSpecifiedBitsOfSpecificColorsVertical(BufferedImage image, int[] colors, int[] whichBits){
-        
+        //same as earlier method but top to bottom, then left to right
         int width = image.getWidth();
         int height = image.getHeight();
-    // System.out.println("Height: " + height + " Width: " + width);
         
         LinkedList<Integer> bits = new LinkedList<Integer>();
         WritableRaster raster = image.getRaster();
@@ -265,16 +192,92 @@ public class Helpers{
                     for (int j: whichBits){
                         bits.add((pixels[i] & ((int) Math.pow(2,j-1)))>>(j-1)); 
                         bitsCollected++;
-                        if (bitsCollected>45000000 && bitsCollected % 8==0){
-                            System.out.println(true);
-                            return bits;}
+                        //change below to change how many bits you need
                         if (bitsCollected%1000000==0) System.out.println(bitsCollected);
                         if (bitsCollected==75497472){return bits;}
+                        if (bitsCollected==18432000){return bits;}
                     }
                 }
             }
         }
         return bits;    
     } 
+    public static LinkedList<Integer> flipBits(LinkedList<Integer> bits){
+        LinkedList<Integer> toReturn = new LinkedList<Integer>();
+        for (Integer i : bits){
+            if (i==0){
+                toReturn.add(1);
+            }
+            else
+                toReturn.add(0);
+        }
+        return toReturn;
+    }
+    public static void findHeader(LinkedList<Integer> bytes){
+        ArrayList<Integer> localBytes = new ArrayList<Integer>();
+        for (Integer i : bytes){
+            localBytes.add(i);
+        }
+        int numFound=0;
+        boolean intFound=false;
+        for (int i =0; i<localBytes.size()-8; i+=4){
+            int intOneBigEndian= (localBytes.get(i)<<24) + (localBytes.get(i+1)<<16)+(localBytes.get(i+2)<<8)+(localBytes.get(i+3));
+            if (intOneBigEndian < 4000 && intOneBigEndian>80 && i<600000){
+                if (intFound){
+                    System.out.println(intOneBigEndian);
+                    System.out.println("At pixel: " + i);
+                    numFound++;
+                }
+                intFound=true;
+            }
+            else
+                intFound=false;
+        }
+        System.out.println(numFound);
+    }
+
+
+    public static void findStringOfZeroPixels(LinkedList<Integer> pixelValues){
+        //Finds strings of black pixels (which denote a header) in the first row/column of an image
+        int numInARow=0;
+        int size = pixelValues.size();
+        ArrayList<Integer> localValues = new ArrayList<Integer>();
+        for (Integer i: pixelValues){
+            localValues.add(i);
+        }
+        for (int i=0; i< size; i++){
+            int pixelVal = localValues.get(i);
+            if (pixelVal==0){
+                numInARow++;
+                if (numInARow ==6 && i < 4000){
+                    System.out.println(i);
+                }
+            }
+            else
+                numInARow=0;
+        }   
+    }
+
+    public static LinkedList<Integer> getPixelTotalValuesVertical(BufferedImage image){
+        //gets total value of RGB channels from and image
+        //returns a linked list of ints between 0 and 795
+        //get top to bottom, then left to right
+        int width = image.getWidth();
+        int height = image.getHeight();
+        
+        LinkedList<Integer> pixelValues = new LinkedList<Integer>();
+        WritableRaster raster = image.getRaster();
+        for (int c = 0; c < width; c++) {
+            for (int r = 0; r < height; r++) {
+                int[] pixels = raster.getPixel(c, r, (int[]) null);
+                int pixelVal = 0;
+                pixelVal += pixels[0];
+                pixelVal += pixels[1];
+                pixelVal += pixels[2];
+                pixelValues.add(pixelVal);
+            }
+        }
+        return pixelValues; 
+    }
 }
 

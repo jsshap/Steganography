@@ -1,3 +1,5 @@
 *.class
 Test.java
 AlbumCover.java
+*.txt
+*.png
