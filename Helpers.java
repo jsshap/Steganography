@@ -54,7 +54,6 @@ public class Helpers{
         //[3,2,1] for least sig 3 bits
         //This method takes in a list of color channels and a least of bits (3rd lsb, 2nd lsb, 1st lsb)
         //and returns a list of those bits
-        //I think this does in fact work based on a quick test
         //Pull LSBs of one color channel. R=0, G=1, B=2. Input array must be in increasing order
         //like in pullLSBsOfSpecificColors
         int width = image.getWidth();
